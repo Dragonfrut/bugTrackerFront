@@ -34,6 +34,21 @@ function login(){
     }
 }
 
-login();
+function addBug(){
+    echo('add bug');
+}
+
+$action = isset($_POST['action'])?$_POST['action']:false;
+if (!$action){
+    die('Missing action');
+}
+if ($action=='login'){
+    login();
+} else if ($action=='addBug'){
+    addBug();
+} else {
+    die('Invalid action');
+}
+
 
 ?>
