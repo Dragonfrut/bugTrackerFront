@@ -9,6 +9,7 @@ session_start();
     <body>
         <h1>login</h1>
         <form method='POST' action="controller.php">
+            <input type="hidden" value='login' name='action' />
             <table>
                 <tr>
                     <td>Email</td>

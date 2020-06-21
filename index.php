@@ -11,9 +11,11 @@
         </script>
     </head>
     <body>
-        <a href='/logout.php'>Logout</a>
+        <?php
+        include('nav.php');
+        ?>
         <br />
-        <h1>hello world</h1>
+        <h1>Bugs</h1>
         <table id='bugs'>
             <tr>
                 <td>Title</td>
