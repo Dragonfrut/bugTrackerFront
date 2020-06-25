@@ -25,17 +25,27 @@
                 </tr>
                 <tr>
                     <td>Severity</td>
-                    <td><select name='severity'>
-                        <?=severityDropdown();?>
-                    </select></td>
+                    <td>
+                        <select id="severity" name="severity" disabled="disabled" name='severity'>
+                            <option>Please wait...</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td><input type='text' name='status' /></td>
+                    <td>
+                        <select id="status" name="status" disabled="disabled" name='severity'>
+                            <option>Please wait...</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Operating System</td>
-                    <td><input type='text' name='operating_systems' /></td>
+                    <td>
+                        <select id="operatingSystem" name="operatingSystem" disabled="disabled" name='severity'>
+                            <option>Please wait...</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Description</td>
@@ -57,7 +67,8 @@
             </table>
         </form>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script src="/api.js?cachebuster=<?=time()?>"></script>
+        <script src="/JS/api.js?cachebuster=<?=time()?>"></script>
+        <script src="/JS/addBug.js?cachebuster=<?=time()?>"></script>
     </body>
 
 </html>
