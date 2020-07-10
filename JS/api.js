@@ -55,21 +55,18 @@ function getSeverity()
         const objectName = Object.keys(attribute)[0];
         if (objectName == "severities"){
           attribute.severities.forEach(function(value){
-            console.log('value', value)
             severityOptions += "<option value='" +
               value[0] + "'>" + 
               value[1] + "</option>";
           })
         } else if (objectName == "statuses") {
           attribute.statuses.forEach(function(value){
-            console.log('value', value)
             statusOptions += "<option value='" +
               value[0] + "'>" + 
               value[1] + "</option>";
           })
         } else {
           attribute['operating systems'].forEach(function(value){
-            console.log('value', value)
             osOptions += "<option value='" +
               value[0] + "'>" + 
               value[1] + "</option>";
@@ -84,6 +81,71 @@ function getSeverity()
       $("#status").removeAttr("disabled");
       $("#operatingSystem").html(osOptions);
       $("#operatingSystem").removeAttr("disabled");
+    },
+    error: function (jqXHR, status) {
+      // error handler
+      console.log(jqXHR);
+      alert('error' + status.code);
+    }
+  });
+}
+
+function getProjects()
+{
+  console.log('get projects')  
+  const url = "https://marksbugtracker.herokuapp.com/projects";
+  $.ajax({
+    type: "GET",
+    url: url,
+    headers: {
+      'Authorization': `Token ` + token,
+    },
+    contentType: "application/json; charset=utf-8",
+    crossDomain: true,
+    dataType: "json",
+    success: function (data, status, jqXHR) {
+      var projectList = '';
+      data.results.forEach(function(project){
+        projectList += "<option value='" +
+          project.id + "'>" + 
+          project.name + "</option>";
+      })
+      $("#project").html(projectList);
+      $("#project").removeAttr("disabled");
+      getAssignedUsers();
+    },
+    error: function (jqXHR, status) {
+      // error handler
+      console.log(jqXHR);
+      alert('error' + status.code);
+    }
+  });
+}
+
+function getAssignedUsers()
+{
+  $("#assigned").attr("disabled", "disabled");
+  console.log('get assigned user')  
+  const project_id = $('#project').val();
+  const url = "https://marksbugtracker.herokuapp.com/assigned/" + project_id;
+  $.ajax({
+    type: "GET",
+    url: url,
+    headers: {
+      'Authorization': `Token ` + token,
+    },
+    contentType: "application/json; charset=utf-8",
+    crossDomain: true,
+    dataType: "json",
+    success: function (data, status, jqXHR) {
+      var assignedUserList = '<option value="null">Unassigned</option>';
+      data.results.forEach(function(assigned){
+        assignedUserList += "<option value='" +
+          assigned.id + "'>" + 
+          assigned.userName + "</option>";
+      })
+      $("#assigned").html(assignedUserList);
+      $("#assigned").removeAttr("disabled");
     },
     error: function (jqXHR, status) {
       // error handler

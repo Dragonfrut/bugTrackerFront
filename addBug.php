@@ -16,7 +16,7 @@
         ?>
         <br />
         <h1>Add Bug</h1>
-        <form method='POST' action="controller.php">
+        <form id="bugSubmit">
             <input type="hidden" value='addBug' name='action' />
             <table id='bug'>
                 <tr>
@@ -53,11 +53,19 @@
                 </tr>
                 <tr>
                     <td>Project</td>
-                    <td><input type='text' name='project' /></td>
+                    <td>
+                        <select id="project" name="project" disabled="disabled" name='project'>
+                            <option>Please wait...</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Assigned user</td>
-                    <td><input type='text' name='assigned_user' /></td>
+                    <td>
+                        <select id="assigned" name="assigned" disabled="disabled" name='assigned'>
+                            <option>Please wait...</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><button type="submit">Submit</button> </td>
