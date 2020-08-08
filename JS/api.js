@@ -15,9 +15,9 @@ function getBugs()
     success: function (data, status, jqXHR) {
       data.results.forEach(function(bug){
         $('#bugs tr:last').after('<tr>\
-                <td>' + bug.title + '</td>\
+                <td><a href="/editBug.php?id='+ bug.id +'">' + bug.title + '</a></td>\
                 <td>' + bug.dateCreated + '</td>\
-                <td>' + bug.reportedBy + '</td>\
+                <td>' + bug.reportedByName + '</td>\
             </tr>')
       })
     },
@@ -32,6 +32,43 @@ function getBugs()
 $(document).ready(function() {
     getBugs();
 });
+
+function getBug(id)
+{
+  console.log('get bug')  
+  const url = "https://marksbugtracker.herokuapp.com/bugs/" + id;
+  $.ajax({
+    type: "GET",
+    url: url,
+    headers: {
+      'Authorization': `Token ` + token,
+    },
+    contentType: "application/json; charset=utf-8",
+    crossDomain: true,
+    dataType: "json",
+    success: function (data, status, jqXHR) {
+      console.log("dataaaaaa", data);
+      $('#description').val(data.description);
+      $('#title').val(data.title);
+      $('#severity').val(data.severity);
+      $('#status').val(data.status);
+      $('#operatingSystem').val(data.operatingSystem);
+      $('#project').val(data.project);
+      $('#assigned').val(data.assigned);
+      $('#id').val(data.id);
+      $('#loading').addClass('hidden');
+      $('#bug-form-wrapper').removeClass('hidden');
+
+
+    },
+    error: function (jqXHR, status) {
+      // error handler
+      console.log(jqXHR);
+      alert('error' + status.code);
+    }
+  });
+}
+
 
 function getSeverity()
 {
@@ -128,6 +165,7 @@ function getAssignedUsers()
   console.log('get assigned user')  
   const project_id = $('#project').val();
   const url = "https://marksbugtracker.herokuapp.com/assigned/" + project_id;
+
   $.ajax({
     type: "GET",
     url: url,
@@ -141,7 +179,7 @@ function getAssignedUsers()
       var assignedUserList = '<option value="null">Unassigned</option>';
       data.results.forEach(function(assigned){
         assignedUserList += "<option value='" +
-          assigned.id + "'>" + 
+          assigned.user + "'>" + 
           assigned.userName + "</option>";
       })
       $("#assigned").html(assignedUserList);

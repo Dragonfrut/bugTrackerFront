@@ -5,11 +5,9 @@
 ?>
 
 <html>
-    <head>
-        <script>
-            const token = '<?=$_SESSION['token']?>';
-        </script>
-    </head>
+    <?php
+    include('header.php');
+    ?>
     <body>
         <?php
         include('nav.php');
